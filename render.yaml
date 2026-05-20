@@ -26,6 +26,5 @@ services:
   - type: web
     name: sunumarket-web
     runtime: static
-    plan: free
     buildCommand: mkdir -p dist && cp index.html app.js style.css brochure-sunumarket.html sunumarket-logo.svg sunumarket-logo.png sunumarket-logo.svgz dist/
     staticPublishPath: dist
