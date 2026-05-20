@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SunuMarket - Marketplace intelligente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="#home" class="logo">
+      <img src="sunumarket-logo.svg" alt="SunuMarket" class="logo-img" />
+    </a>
+    <button id="nav-toggle" class="nav-toggle" aria-label="Ouvrir le menu">
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+    </button>
+    <nav>
+      <button id="nav-home" class="nav-btn">Accueil</button>
+      <button id="nav-pricing" class="nav-btn">Tarifs</button>
+      <button id="nav-dashboard" class="nav-btn">Mon espace</button>
+      <button id="nav-store" class="nav-btn">Ma boutique</button>
+      <button id="nav-profile" class="nav-btn">Mon profil</button>
+      <button id="nav-chatbot" class="nav-btn">Chatbot</button>
+      <button id="nav-login" class="nav-btn primary">Se connecter</button>
+    </nav>
+  </header>
+
+  <main id="main"></main>
+
+  <footer class="app-footer">
+    <div>© 2026 SunuMarket - Marketplace simple pour l'Afrique</div>
+    
+  </footer>
+
+  <template id="home-template">
+    <section class="hero">
+      <h1>Votre boutique en ligne en quelques minutes</h1>
+      <p>Créez un compte vendeur pour vendre, ou créez un compte client pour découvrir des boutiques.</p>
+      <div class="hero-actions">
+        <button id="cta-register" class="primary">Créer un compte</button>
+        <button id="cta-tour" class="secondary">Voir le tour</button>
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>Fonctionnalités clés</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>Création facile</h3>
+          <p>Inscription simple : Nom, téléphone, email, mot de passe.</p>
+        </div>
+        <div class="feature">
+          <h3>Boutiques personnalisées</h3>
+          <p>Chaque vendeur obtient une page boutique partageable.</p>
+        </div>
+        <div class="feature">
+          <h3>Objectifs et badges</h3>
+          <p>Définissez votre objectif mensuel et gagnez des badges de performance.</p>
+        </div>
+        <div class="feature">
+          <h3>Chatbot intelligent</h3>
+          <p>Réponses automatiques pour aider les clients et suivre les commandes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="support">
+      <h2>Créez votre boutique en moins de 5 minutes</h2>
+      <p>Exemple : "Je vend des chaussures, vêtements et accessoires depuis sa boutique."</p>
+      <ul>
+        <li>Ajouter des produits (photo, prix, stock, livraison)</li>
+        <li>Recevoir un lien partageable</li>
+        <li>Suivre vos ventes et progrès</li>
+      </ul>
+    </section>
+  </template>
+
+  <template id="login-template">
+    <section class="card">
+      <h2>Se connecter</h2>
+      <form id="login-form" class="form">
+        <div class="form-row"><label>Email</label><input id="login-email" type="email" placeholder="mamadou@example.com" required></div>
+        <div class="form-row"><label>Mot de passe</label><input id="login-password" type="password" placeholder="••••••••" required></div>
+        <div class="form-row">
+          <button type="submit" class="primary">Se connecter</button>
+        </div>
+      </form>
+      <p><a href="#register">Pas de compte ? S'inscrire</a></p>
+    </section>
+  </template>
+
+  <template id="register-template">
+    <section class="card">
+      <h2>S'inscrire</h2>
+      <form id="register-form" class="form">
+        <div class="form-row"><label>Nom complet</label><input id="register-name" placeholder="Nom complet" required></div>
+        <div class="form-row">
+          <label>Type de compte</label>
+          <div class="radio-group">
+            <label><input type="radio" name="account-type" value="seller" checked> Vendeur</label>
+            <label><input type="radio" name="account-type" value="customer"> Client</label>
+          </div>
+        </div>
+        <div class="form-row"><label>Téléphone</label><input id="register-phone" placeholder="+221 77 000 00 00" required></div>
+        <div id="register-store-fields">
+          <div class="form-row"><label>Nom de la boutique</label><input id="register-store-name" placeholder="Nom de votre boutique" required></div>
+          <div class="form-row"><label>Logo de la boutique (URL)</label><input id="register-store-logo" placeholder="https://... ou laissez vide" /></div>
+          <div class="form-row"><label>Logo de la boutique (fichier)</label><input id="register-store-logo-file" type="file" accept="image/*" /></div>
+          <div class="form-row"><label>Activation vendeur</label><p class="small">Paiement temporairement indisponible. Votre compte vendeur est active immediatement apres inscription.</p></div>
+        </div>
+        <div class="form-row"><label>Email</label><input id="register-email" type="email" placeholder="mamadou@example.com" required></div>
+        <div class="form-row"><label>Mot de passe</label><input id="register-password" type="password" placeholder="••••••••" required></div>
+        <div class="form-row"><label>WhatsApp (lié automatiquement au téléphone)</label><input id="register-whatsapp" placeholder="Se remplit automatiquement depuis le téléphone"></div>
+        <div class="form-row"><label>Snapchat (optionnel)</label><input id="register-snapchat" placeholder="https://snapchat.com/add/username"></div>
+        <div class="form-row"><label>Instagram (optionnel)</label><input id="register-instagram" placeholder="https://instagram.com/username"></div>
+        <div class="form-row"><label>TikTok (optionnel)</label><input id="register-tiktok" placeholder="https://tiktok.com/@username"></div>
+        <div class="form-row">
+          <button type="submit" class="primary">Créer un compte</button>
+        </div>
+      </form>
+      <p><a href="#login">Déjà un compte ? Se connecter</a></p>
+      <div class="note">
+        <strong>Astuce :</strong> une fois inscrit, vous pouvez créer votre boutique, ajouter des produits et commencer à partager votre lien.
+      </div>
+    </section>
+  </template>
+
+  <template id="pricing-template">
+    <section class="section">
+      <h2>Tarifs SunuMarket</h2>
+      <div class="card">
+        <h3>Tarifs temporairement indisponibles</h3>
+        <p>La tarification vendeur est en cours de mise a jour. L'integration API de paiement est temporairement indisponible.</p>
+        <ul>
+          <li><strong>Tarif non affiche pour le moment</strong></li>
+          <li>Accès à votre boutique</li>
+          <li>Ajout de produits</li>
+          <li>Notifications de commande</li>
+          <li>Statistiques et tableau de bord</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Pourquoi choisir SunuMarket ?</h3>
+        <p>Une plateforme simple et locale pour vendre vos produits en ligne, avec un abonnement unique abordable.</p>
+      </div>
+      <div class="section">
+        <p>Les tarifs seront reactives des que l'API de paiement sera disponible. En attendant, vous pouvez deja creer votre compte vendeur.</p>
+        <button class="primary" onclick="window.location.hash='#register'">S’inscrire maintenant</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="browse-template">
+    <section class="section">
+      <h2>Découvrez des boutiques</h2>
+      <p>Parcourez les vendeurs et trouvez des produits intéressants.</p>
+      <div class="browse-controls">
+        <div class="search-row">
+          <input id="store-search" type="search" placeholder="Rechercher une boutique ou un vendeur..." />
+        </div>
+        <select id="store-sort" class="sort-select">
+          <option value="popular">Trier par popularité</option>
+          <option value="newest">Trier par nouveautés</option>
+          <option value="products">Trier par nombre de produits</option>
+        </select>
+      </div>
+      <div id="store-list" class="feature-grid"></div>
+    </section>
+  </template>
+
+  <template id="dashboard-template">
+    <section class="section">
+      <h2>Tableau de bord vendeur</h2>
+      <div class="dashboard-grid">
+        <div class="card">
+          <h3>Ventes</h3>
+          <div id="dashboard-sales">0 FCFA</div>
+        </div>
+        <div class="card">
+          <h3>Produits</h3>
+          <div id="dashboard-products">0</div>
+        </div>
+        <div class="card">
+          <h3>Commandes</h3>
+          <div id="dashboard-orders">0</div>
+        </div>
+        <div class="card">
+          <h3>Clients</h3>
+          <div id="dashboard-clients">0</div>
+        </div>
+        <div class="card">
+          <h3>Objectif mensuel</h3>
+          <div class="progress">
+            <div id="goal-progress" class="progress-bar" style="width: 0%"></div>
+          </div>
+          <div id="goal-summary">Définir un objectif pour voir la progression</div>
+        </div>
+      </div>
+
+      <div class="section" id="goal-section">
+        <h3>Définir votre objectif mensuel</h3>
+        <form id="goal-form" class="form-inline">
+          <input id="goal-value" type="number" min="0" placeholder="Ex: 1000000" required>
+          <button class="primary" type="submit">Enregistrer</button>
+        </form>
+      </div>
+
+      <div class="section">
+        <h3>Badges</h3>
+        <div id="badges" class="badge-row">
+          <span class="badge">🥉 Vendeur Actif</span>
+          <span class="badge">🥈 Vendeur Pro</span>
+          <span class="badge">🥇 Top Vendeur</span>
+        </div>
+        <p class="small">Gagnez des badges en atteignant vos objectifs mensuels.</p>
+      </div>
+
+      <div class="section">
+        <h3>Liens partageables</h3>
+        <p>Votre boutique : <span id="store-link" class="link"></span></p>
+        <div class="share-buttons">
+          <button class="secondary" id="share-whatsapp">WhatsApp</button>
+          <button class="secondary" id="share-instagram">Instagram</button>
+          <button class="secondary" id="share-tiktok">TikTok</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Notifications récentes</h3>
+        <p class="small">Suivez l'historique des commandes et des alertes envoyées via WhatsApp.</p>
+        <div id="notifications-list"></div>
+      </div>
+
+      <div class="section">
+        <h3>📈 Évolution des commandes</h3>
+        <div class="chart-container">
+          <canvas id="orders-chart" width="400" height="200"></canvas>
+        </div>
+        <p class="small">Graphique des commandes par jour (7 derniers jours)</p>
+      </div>
+
+      <div class="section">
+        <h3>Résumé rapide</h3>
+        <p>Vous pouvez ajouter des produits et gérer votre boutique depuis l'onglet <strong>Ma boutique</strong>.</p>
+      </div>
+
+      <div class="section">
+        <h3>Commandes récentes</h3>
+        <div id="orders-list"></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="store-template">
+    <section class="store-section">
+      <div class="store-header-card">
+        <h2>🏪 Ma boutique</h2>
+        <p>Gérez votre boutique et vos produits</p>
+      </div>
+
+      <div class="store-meta-card card">
+        <h3>📝 Informations de la boutique</h3>
+        <div class="store-meta-form">
+          <div class="form-row">
+            <label>Nom de la boutique</label>
+            <input id="store-name" placeholder="Teranga Sneakers" />
+          </div>
+          <div class="form-row">
+            <label>Description (optionnel)</label>
+            <textarea id="store-description" rows="2" placeholder="Boutique de chaussures modernes"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Couleur du thème</label>
+            <input id="store-theme-color" type="color" value="#28a745" />
+          </div>
+          <div class="form-row">
+            <button id="save-store" class="primary animated-btn">💾 Enregistrer</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-product-card card">
+        <h3>➕ Ajouter un produit</h3>
+        <form id="product-form" class="form product-form">
+          <div class="form-grid">
+            <div class="form-row">
+              <label>Nom produit</label>
+              <input id="product-name" placeholder="Nike Air" required>
+            </div>
+            <div class="form-row">
+              <label>Prix (FCFA)</label>
+              <input id="product-price" type="number" min="0" value="0" required>
+            </div>
+            <div class="form-row">
+              <label>Stock</label>
+              <input id="product-stock" type="number" min="0" value="1" required>
+            </div>
+            <div class="form-row">
+              <label>Livraison</label>
+              <select id="product-shipping">
+                <option value="Dakar 24h">Dakar 24h</option>
+                <option value="Régions 48-72h">Régions 48-72h</option>
+              </select>
+            </div>
+            <div class="form-row full-width">
+              <label>Description</label>
+              <textarea id="product-desc" rows="2" placeholder="Description du produit"></textarea>
+            </div>
+            <div class="form-row">
+              <label>Photo (URL)</label>
+              <input id="product-image" placeholder="https://..." />
+            </div>
+            <div class="form-row">
+              <label>Ou uploader une image</label>
+              <input type="file" id="product-image-file" accept="image/*" />
+            </div>
+          </div>
+          <div class="form-row">
+            <button type="submit" class="primary animated-btn">🚀 Ajouter le produit</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="products-card card">
+        <h3>📦 Liste des produits</h3>
+        <div id="product-list" class="product-list animated-list"></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="profile-template">
+    <section class="card">
+      <h2>Mon profil</h2>
+      <form id="profile-form" class="form">
+        <div class="form-row"><label>Nom complet</label><input id="profile-name" required></div>
+        <div class="form-row"><label>Téléphone</label><input id="profile-phone" required></div>
+        <div class="form-row"><label>Email</label><input id="profile-email" type="email" required></div>
+        <div class="form-row"><label>Nouveau mot de passe (laisser vide pour ne pas changer)</label><input id="profile-password" type="password"></div>
+        <div class="form-row"><label>WhatsApp (lié automatiquement au téléphone)</label><input id="profile-whatsapp" placeholder="Se remplit automatiquement depuis le téléphone"></div>
+        <div class="form-row"><label>Snapchat</label><input id="profile-snapchat"></div>
+        <div class="form-row"><label>Instagram</label><input id="profile-instagram"></div>
+        <div class="form-row"><label>TikTok</label><input id="profile-tiktok"></div>
+        <div class="form-row">
+          <button type="submit" class="primary">Enregistrer</button>
+        </div>
+      </form>
+
+      <div class="logout-section">
+        <h3>Déconnexion</h3>
+        <p>Vous pouvez vous déconnecter de votre compte à tout moment.</p>
+        <button id="logout-btn" class="secondary">Se déconnecter</button>
+      </div>
+
+      <div class="logout-section">
+        <h3>Supprimer mon compte</h3>
+        <p>Cette action est irréversible et supprimera toutes vos données.</p>
+        <button id="delete-account-btn" class="danger">Supprimer le compte</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="store-view-template">
+    <section class="store-view">
+      <header class="store-header">
+        <div class="store-header-left">
+          <img id="store-view-logo" class="store-logo" alt="Logo boutique" src="" style="display:none;" />
+          <div>
+            <h1 id="store-view-name"></h1>
+            <p id="store-view-description"></p>
+            <p class="store-link">Partagez : <span id="store-view-link"></span></p>
+          </div>
+        </div>
+        <div class="store-badge" id="store-badge">🥉</div>
+      </header>
+
+      <section class="store-products">
+        <h2>Produits</h2>
+        <div id="store-view-products" class="product-grid"></div>
+        <div id="store-empty" class="empty">Aucun produit pour le moment.</div>
+      </section>
+
+      <section class="social-links" id="social-links-section">
+        <h3>Nous contacter</h3>
+        <div id="social-links"></div>
+      </section>
+
+      <aside class="help-box">
+        <h3>Comment utiliser</h3>
+        <ul>
+          <li>Partagez votre lien.</li>
+          <li>Les clients vous contactent via WhatsApp ou téléphone.</li>
+          <li>Enregistrez vos commandes dans le tableau de bord.</li>
+        </ul>
+      </aside>
+    </section>
+  </template>
+
+  <template id="chatbot-template">
+    <section class="section">
+      <h2>Chatbot intelligent</h2>
+      <div class="chatbox" id="chatbox">
+        <div class="chat-messages" id="chat-messages"></div>
+        <form id="chat-form" class="chat-input">
+          <input id="chat-input" placeholder="Posez une question (ex: Où est ma commande ?)" autocomplete="off" />
+          <button class="primary">Envoyer</button>
+        </form>
+      </div>
+      <div class="note small">
+        Chatbot basique : réponses automatiques pré‑programmées. L'IA est prévue pour une future version.
+      </div>
+    </section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

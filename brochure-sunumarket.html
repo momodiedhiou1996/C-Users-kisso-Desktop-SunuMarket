@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ebook SunuMarket 2026 - Version alignee au site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #fffef9;
+      --paper-soft: #f5f8f3;
+      --ink: #0f1720;
+      --muted: #4f5f69;
+      --green: #1d8f52;
+      --green-deep: #15663b;
+      --amber: #f4b400;
+      --teal: #12848d;
+      --line: #d9e1dd;
+      --hero: linear-gradient(135deg, #0f6f40 0%, #1f9d64 35%, #f4b400 105%);
+      --spot: radial-gradient(circle at 20% 15%, rgba(244, 180, 0, 0.24), transparent 42%), radial-gradient(circle at 90% 10%, rgba(18, 132, 141, 0.22), transparent 35%);
+      --radius: 18px;
+      --shadow: 0 22px 48px rgba(17, 43, 31, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(160deg, #dbe9df, #f3efe2 45%, #d8e8ec 100%);
+      color: var(--ink);
+      font-family: "Manrope", sans-serif;
+      line-height: 1.5;
+    }
+
+    .book {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+      min-height: 1120px;
+      margin-bottom: 18px;
+      padding: 42px;
+      background: var(--paper);
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--spot);
+      pointer-events: none;
+    }
+
+    .page > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover {
+      background: linear-gradient(145deg, #fbfffd 0%, #eff9f2 55%, #fff5dd 100%);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(16, 69, 40, 0.18));
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 25px;
+      letter-spacing: -0.3px;
+      color: var(--green-deep);
+    }
+
+    .brand span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .tag {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #0f4f2f;
+      background: rgba(29, 143, 82, 0.14);
+      border: 1px solid rgba(29, 143, 82, 0.35);
+      padding: 9px 14px;
+      border-radius: 999px;
+    }
+
+    .title-block {
+      margin-top: 52px;
+      max-width: 780px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.6px;
+    }
+
+    h1 {
+      font-size: 55px;
+      line-height: 1.02;
+    }
+
+    .lead {
+      margin-top: 18px;
+      font-size: 20px;
+      color: #2b3a43;
+      max-width: 700px;
+    }
+
+    .ribbon {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #09371e;
+      background: linear-gradient(90deg, rgba(244, 180, 0, 0.22), rgba(29, 143, 82, 0.2));
+      padding: 10px 16px;
+      border-radius: 999px;
+    }
+
+    .metric-grid {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(15, 111, 64, 0.2);
+      background: #ffffff;
+    }
+
+    .metric strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 30px;
+      color: var(--green-deep);
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .cover-foot {
+      margin-top: 60px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-top: 1px dashed rgba(15, 111, 64, 0.35);
+      padding-top: 16px;
+      font-size: 13px;
+      color: #37525f;
+      flex-wrap: wrap;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 790px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid #d9e4dc;
+      background: #ffffff;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+      color: #193128;
+    }
+
+    .card p,
+    .card li {
+      font-size: 15px;
+      color: #30434d;
+    }
+
+    .card ul,
+    .steps ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .steps {
+      margin-bottom: 16px;
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(18, 132, 141, 0.3);
+      background: linear-gradient(130deg, rgba(18, 132, 141, 0.08), rgba(244, 180, 0, 0.12));
+    }
+
+    .steps h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #0f4f57;
+    }
+
+    .steps li {
+      margin: 7px 0;
+    }
+
+    .highlight {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: var(--radius);
+      background: var(--hero);
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .highlight strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .highlight .pill {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 999px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.1);
+      white-space: nowrap;
+    }
+
+    .flow {
+      margin-top: 16px;
+      padding-left: 14px;
+      border-left: 4px solid var(--green);
+    }
+
+    .flow .item {
+      margin-bottom: 12px;
+    }
+
+    .flow .item h4 {
+      margin: 0 0 3px;
+      font-size: 17px;
+      color: #1c382c;
+    }
+
+    .flow .item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .faq {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border-radius: 14px;
+      border: 1px solid #d6ddd8;
+      background: #fff;
+      padding: 14px;
+    }
+
+    .faq-item h4 {
+      margin: 0 0 5px;
+      font-size: 16px;
+      color: #1e3528;
+    }
+
+    .faq-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .page-foot {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line);
+      font-size: 13px;
+      color: #52646e;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .book {
+        max-width: none;
+        padding: 0;
+      }
+
+      .page {
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        min-height: auto;
+        height: 277mm;
+        page-break-after: always;
+        padding: 14mm;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        min-height: auto;
+        padding: 26px;
+      }
+
+      h1 {
+        font-size: 39px;
+      }
+
+      .grid-2,
+      .metric-grid,
+      .highlight {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="book">
+    <section class="page cover">
+      <header class="topbar">
+        <div class="brand">
+          <img src="sunumarket-logo.svgz" alt="Logo SunuMarket" />
+          <div>
+            <strong>SunuMarket</strong>
+            <span>Marketplace locale pour vendre et acheter en toute confiance</span>
+          </div>
+        </div>
+        <div class="tag">Edition Officielle 2026</div>
+      </header>
+
+      <div class="title-block">
+        <h1>Guide complet pour s'inscrire, vendre et acheter sur SunuMarket</h1>
+        <p class="lead">
+          Cette brochure presente le parcours actuel de SunuMarket: creation de compte,
+          lancement de boutique, publication des produits et navigation rapide pour les clients.
+        </p>
+        <div class="ribbon">Objectif: passer de l'idee a la mise en ligne en quelques jours</div>
+      </div>
+
+      <section class="metric-grid" aria-label="indicateurs rapides">
+        <article class="metric">
+          <strong>4 min</strong>
+          <span>Pour creer un compte vendeur ou client</span>
+        </article>
+        <article class="metric">
+          <strong>Inscription ouverte</strong>
+          <span>Paiement vendeur temporairement desactive</span>
+        </article>
+        <article class="metric">
+          <strong>24h</strong>
+          <span>Delai type de livraison locale annonce</span>
+        </article>
+      </section>
+
+      <footer class="cover-foot">
+        <span>Ebook SunuMarket - Mai 2026</span>
+        <span>Theme: vendre local, grandir digital simplement</span>
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="section-head">
+        <h2>Identite visuelle et promesse</h2>
+        <p>
+          Le design met en avant la clarte, la proximite et la croissance. Les codes visuels guident
+          l'utilisateur vers l'action tout en rassurant a chaque etape.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Direction artistique</h3>
+          <ul>
+            <li>Vert: confiance, progression, validation.</li>
+            <li>Ambre: energie commerciale et attention sur l'appel a l'action.</li>
+            <li>Teal: signature digitale moderne et locale.</li>
+            <li>Fond clair premium pour une lecture confortable sur ecran ou papier.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Structure de lecture</h3>
+          <ul>
+            <li>Titres forts et courts pour chaque partie.</li>
+            <li>Cartes informatives pour reduire la charge cognitive.</li>
+            <li>Sections actionnables avec etapes operationnelles.</li>
+            <li>Mise en page optimisee pour impression A4.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Proposition de valeur</h3>
+          <p>
+            SunuMarket donne a chaque vendeur local un outil simple pour lancer sa boutique,
+            presenter ses produits et convertir plus vite grace a une experience client fluide.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Fonctions cle</h3>
+          <ul>
+            <li>Comptes client/vendeur avec activation rapide par email.</li>
+            <li>Gestion des produits, stocks et commandes.</li>
+            <li>Partage de boutique via lien direct et reseaux.</li>
+            <li>Dashboard de progression et badges vendeurs.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="highlight">
+        <div>
+          <strong>Une brochure orientee resultat</strong>
+          Chaque page sert une action concrete: s'inscrire, vendre mieux, acheter rapidement.
+        </div>
+        <div class="pill">Design+Clarte</div>
+      </div>
+
+      <footer class="page-foot">
+        <span>Ebook SunuMarket - Identite visuelle</span>
+        <span>Page 2</span>
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="section-head">
+        <h2>Comment s'inscrire</h2>
+        <p>
+          Le parcours d'inscription est volontairement court. En moins de 5 minutes, le profil est cree
+          et pret a etre active selon le role choisi.
+        </p>
+      </div>
+
+      <div class="steps">
+        <h3>Parcours commun</h3>
+        <ol>
+          <li>Cliquer sur Creer un compte.</li>
+          <li>Renseigner nom, telephone, email et mot de passe.</li>
+          <li>Selectionner le role: Vendeur ou Client.</li>
+          <li>Valider puis verifier l'email pour activer le compte vendeur.</li>
+        </ol>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Inscription vendeur</h3>
+          <ul>
+            <li>Nom de boutique, logo et description.</li>
+            <li>Activation par verification email.</li>
+            <li>Paiement temporairement indisponible pendant l'integration API.</li>
+            <li>Acces direct aux outils de gestion des ventes apres verification.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Inscription client</h3>
+          <ul>
+            <li>Creation gratuite du compte.</li>
+            <li>Navigation immediate dans les boutiques.</li>
+            <li>Suivi des commandes depuis l'espace utilisateur.</li>
+            <li>Interaction simple avec les vendeurs.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="flow">
+        <div class="item">
+          <h4>1. Profil cree</h4>
+          <p>Le compte est pret sans complexite technique.</p>
+        </div>
+        <div class="item">
+          <h4>2. Activation vendeur</h4>
+          <p>La verification email debloque l'espace business.</p>
+        </div>
+        <div class="item">
+          <h4>3. Mise en action</h4>
+          <p>Le vendeur publie, le client explore et commande.</p>
+        </div>
+      </div>
+
+      <footer class="page-foot">
+        <span>Ebook SunuMarket - Inscription</span>
+        <span>Page 3</span>
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="section-head">
+        <h2>Comment vendre efficacement</h2>
+        <p>
+          Cette section resume la methode pratique pour transformer une boutique en canal de revenus,
+          avec un rythme de publication regulier et un suivi des performances.
+        </p>
+      </div>
+
+      <div class="steps">
+        <h3>Methode vendeur en 6 points</h3>
+        <ol>
+          <li>Completer l'identite de la boutique (nom, univers, description).</li>
+          <li>Creer des fiches produits nettes (prix, stock, livraison, photo).</li>
+          <li>Organiser l'offre par categories pour faciliter la navigation.</li>
+          <li>Partager le lien boutique sur WhatsApp, Instagram, TikTok et Facebook.</li>
+          <li>Repondre vite aux demandes et confirmer les commandes.</li>
+          <li>Analyser les stats pour ajuster prix, stock et promotions.</li>
+        </ol>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Outils a disposition</h3>
+          <ul>
+            <li>Tableau de bord ventes et commandes.</li>
+            <li>Suivi des objectifs mensuels.</li>
+            <li>Historique d'activite et progression des badges.</li>
+            <li>Gestion rapide du stock en temps reel.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Bonnes pratiques</h3>
+          <ul>
+            <li>Photos lumineuses, cadrage propre, prix lisibles.</li>
+            <li>Descriptions courtes mais precises.</li>
+            <li>Mise a jour hebdomadaire des nouveautes.</li>
+            <li>Delais de livraison annonces clairement.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="highlight">
+        <div>
+          <strong>Conseil croissance</strong>
+          Publier regulierement augmente la visibilite, les interactions et la conversion des visites.
+        </div>
+        <div class="pill">Vendre+</div>
+      </div>
+
+      <footer class="page-foot">
+        <span>Ebook SunuMarket - Vendre</span>
+        <span>Page 4</span>
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="section-head">
+        <h2>Comment acheter facilement</h2>
+        <p>
+          Cote client, l'experience est construite pour aller droit au but: trouver le bon produit,
+          commander et suivre la livraison sans friction.
+        </p>
+      </div>
+
+      <div class="steps">
+        <h3>Parcours client recommande</h3>
+        <ol>
+          <li>Se connecter ou creer un compte client.</li>
+          <li>Explorer les boutiques et filtrer selon les besoins.</li>
+          <li>Consulter les produits, prix, stocks et delais.</li>
+            <li>Contacter le vendeur et confirmer les details de livraison.</li>
+            <li>Suivre les informations depuis l'espace et les notifications.</li>
+        </ol>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Ce que le client retrouve</h3>
+          <ul>
+            <li>Boutiques locales actives et identifiables.</li>
+            <li>Fiches produits detaillees et transparentes.</li>
+            <li>Canaux de contact rapides avec les vendeurs.</li>
+            <li>Delais de livraison precises selon la zone.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>FAQ express</h3>
+          <div class="faq">
+            <div class="faq-item">
+              <h4>Le compte client est-il payant ?</h4>
+              <p>Non, l'inscription client est gratuite.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Le compte vendeur est-il payant ?</h4>
+              <p>Pas pour le moment. Le paiement est temporairement desactive jusqu'a l'arrivee de l'API.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Peut-on partager une boutique ?</h4>
+              <p>Oui, chaque vendeur dispose d'un lien partageable.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="highlight">
+        <div>
+          <strong>Experience client simplifiee</strong>
+          Moins d'etapes, plus de clarte, et une decision d'achat plus rapide.
+        </div>
+        <div class="pill">Acheter vite</div>
+      </div>
+
+      <footer class="page-foot">
+        <span>Ebook SunuMarket - Acheter</span>
+        <span>Page 5</span>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
