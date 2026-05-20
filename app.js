@@ -11,7 +11,17 @@ const state = {
   data: loadData(),
 };
 
-const API_BASE = "http://localhost:4001/api";
+const API_BASE = (() => {
+  if (window.SUNUMARKET_API_BASE) return window.SUNUMARKET_API_BASE;
+
+  const host = window.location.hostname;
+  if (host === "localhost" || host === "127.0.0.1") {
+    return "http://localhost:4001/api";
+  }
+
+  // Default Render backend URL if no explicit frontend config is provided.
+  return "https://sunumarket-api.onrender.com/api";
+})();
 const TOKEN_KEY = "sunumarket_token";
 
 function getToken() {

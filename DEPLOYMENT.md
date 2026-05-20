@@ -117,7 +117,7 @@ Optional env variables:
 Run once daily command:
 
 ```powershell
-cd C:\Users\kisso\Desktop\TerangaShop\server; npm run backup:db
+cd C:\Users\kisso\Desktop\SunuMarket\server; npm run backup:db
 ```
 
 ## 7) Smoke tests after deploy
@@ -133,3 +133,31 @@ cd C:\Users\kisso\Desktop\TerangaShop\server; npm run backup:db
 - Rotate JWT secret and third-party tokens
 - Confirm `FRONTEND_ORIGINS` only contains trusted domains
 - Keep `.env` out of git (already ignored)
+
+## 9) Deploy via GitHub + Render
+
+This repo includes a Render Blueprint file:
+
+- `render.yaml`
+
+Steps:
+
+1. Push your project to GitHub.
+2. In Render, click **New +** -> **Blueprint**.
+3. Connect your GitHub repository.
+4. Render detects `render.yaml` and creates:
+	- `sunumarket-api` (Node web service)
+	- `sunumarket-web` (static site)
+5. In the API service environment variables, set `FRONTEND_ORIGINS` to your static site URL (for example `https://sunumarket-web.onrender.com`), then redeploy the API.
+
+Important:
+
+- The backend uses a persistent disk mounted at `/var/data`.
+- SQLite file path is `/var/data/sunumarket.db`.
+- Health check endpoint is `/api/health`.
+
+Frontend API URL:
+
+- In local dev: frontend uses `http://localhost:4001/api`.
+- In production (if not explicitly configured): frontend uses `https://sunumarket-api.onrender.com/api`.
+- To override, define `window.SUNUMARKET_API_BASE` before loading `app.js` in `index.html`.
