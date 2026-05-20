@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: sunumarket-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_ORIGINS
+        sync: false
+      - key: DATABASE_PATH
+        value: /var/data/sunumarket.db
+    disk:
+      name: sunumarket-data
+      mountPath: /var/data
+      sizeGB: 1
+
+  - type: static
+    name: sunumarket-web
+    plan: free
+    buildCommand: mkdir -p dist && cp index.html app.js style.css brochure-sunumarket.html sunumarket-logo.svg sunumarket-logo.png sunumarket-logo.svgz dist/
+    staticPublishPath: dist
