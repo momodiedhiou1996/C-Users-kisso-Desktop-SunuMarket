@@ -3,8 +3,8 @@ services:
     name: sunumarket-api
     runtime: node
     plan: starter
-    buildCommand: cd server && npm install
-    startCommand: cd server && npm start
+    buildCommand: npm install
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
