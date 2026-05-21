@@ -26,6 +26,20 @@ const BCRYPT_ROUNDS = 12;
 const AUTH_RATE_LIMIT_MAX = Number(process.env.AUTH_RATE_LIMIT_MAX || 25);
 const API_RATE_LIMIT_MAX = Number(process.env.API_RATE_LIMIT_MAX || 300);
 
+function resolveDatabasePath(dbPath) {
+  const targetPath = path.resolve(dbPath);
+  const targetDir = path.dirname(targetPath);
+
+  try {
+    fs.mkdirSync(targetDir, { recursive: true });
+    return targetPath;
+  } catch (err) {
+    const fallbackPath = path.resolve(__dirname, "sunumarket.db");
+    console.warn(`DATABASE_PATH inaccessible (${targetPath}). Fallback sur ${fallbackPath}.`, err.message || err);
+    return fallbackPath;
+  }
+}
+
 if (!JWT_SECRET || JWT_SECRET.length < 32) {
   throw new Error("JWT_SECRET manquant ou trop court. Définissez une valeur forte d'au moins 32 caractères.");
 }
@@ -109,7 +123,7 @@ function ensureDataShape(data) {
   return data;
 }
 
-const db = new Database(DATABASE_PATH);
+const db = new Database(resolveDatabasePath(DATABASE_PATH));
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 
