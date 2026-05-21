@@ -4,6 +4,7 @@
 */
 
 const STORAGE_KEY = "sunumarket_data_v1";
+const API_BASE_STORAGE_KEY = "sunumarket_api_base";
 
 const state = {
   user: null,
@@ -14,13 +15,28 @@ const state = {
 const API_BASE = (() => {
   if (window.SUNUMARKET_API_BASE) return window.SUNUMARKET_API_BASE;
 
+  const fromQuery = new URLSearchParams(window.location.search).get("apiBase");
+  if (fromQuery) {
+    const normalized = fromQuery.replace(/\/$/, "");
+    localStorage.setItem(API_BASE_STORAGE_KEY, normalized);
+    return normalized;
+  }
+
+  const fromStorage = localStorage.getItem(API_BASE_STORAGE_KEY);
+  if (fromStorage) return fromStorage;
+
   const host = window.location.hostname;
   if (host === "localhost" || host === "127.0.0.1") {
     return "http://localhost:4001/api";
   }
 
-  // Default Render backend URL if no explicit frontend config is provided.
-  return "https://sunumarket-api-u1ei.onrender.com/api";
+  // Render fallback: infer api host from web host when possible.
+  if (host.includes("sunumarket-web") && host.endsWith(".onrender.com")) {
+    return `https://${host.replace("sunumarket-web", "sunumarket-api")}/api`;
+  }
+
+  // Final fallback if no explicit frontend config is provided.
+  return "https://sunumarket-api.onrender.com/api";
 })();
 const TOKEN_KEY = "sunumarket_token";
 
