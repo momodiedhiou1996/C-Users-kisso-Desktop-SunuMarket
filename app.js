@@ -12,18 +12,40 @@ const state = {
   data: loadData(),
 };
 
+function normalizeApiBase(value) {
+  if (!value) return "";
+
+  let normalized = String(value).trim().replace(/\/+$/, "");
+
+  // Common mistake: using the health endpoint as apiBase.
+  normalized = normalized.replace(/\/api\/health$/i, "/api");
+  normalized = normalized.replace(/\/health$/i, "");
+
+  if (!/\/api$/i.test(normalized)) {
+    normalized = `${normalized}/api`;
+  }
+
+  return normalized;
+}
+
 const API_BASE = (() => {
-  if (window.SUNUMARKET_API_BASE) return window.SUNUMARKET_API_BASE;
+  if (window.SUNUMARKET_API_BASE) return normalizeApiBase(window.SUNUMARKET_API_BASE);
 
   const fromQuery = new URLSearchParams(window.location.search).get("apiBase");
   if (fromQuery) {
-    const normalized = fromQuery.replace(/\/$/, "");
+    const normalized = normalizeApiBase(fromQuery);
     localStorage.setItem(API_BASE_STORAGE_KEY, normalized);
     return normalized;
   }
 
   const fromStorage = localStorage.getItem(API_BASE_STORAGE_KEY);
-  if (fromStorage) return fromStorage;
+  if (fromStorage) {
+    const normalized = normalizeApiBase(fromStorage);
+    if (normalized !== fromStorage) {
+      localStorage.setItem(API_BASE_STORAGE_KEY, normalized);
+    }
+    return normalized;
+  }
 
   const host = window.location.hostname;
   if (host === "localhost" || host === "127.0.0.1") {
