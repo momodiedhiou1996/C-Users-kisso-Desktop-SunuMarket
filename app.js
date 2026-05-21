@@ -164,11 +164,7 @@ function render() {
       renderPricing();
       break;
     case "dashboard":
-      if (state.user?.accountType === "customer") {
-        renderCustomerDashboard();
-      } else {
-        renderDashboard();
-      }
+      renderDashboard();
       break;
     case "store":
     case "boutique":
@@ -243,9 +239,7 @@ function renderRegister() {
   const form = dom.main.querySelector("#register-form");
   if (!form) return;
 
-  const storeFields = form.querySelector("#register-store-fields");
   const storeNameInput = form.querySelector("#register-store-name");
-  const accountTypeInputs = form.querySelectorAll('input[name="account-type"]');
   const phoneInput = form.querySelector("#register-phone");
   const whatsappInput = form.querySelector("#register-whatsapp");
   const storeLogoUrlInput = form.querySelector("#register-store-logo");
@@ -255,23 +249,6 @@ function renderRegister() {
   const snapchatInput = form.querySelector("#register-snapchat");
   const instagramInput = form.querySelector("#register-instagram");
   const tiktokInput = form.querySelector("#register-tiktok");
-
-  const updateStoreFields = () => {
-    const accountType = form.querySelector('input[name="account-type"]:checked')?.value || "seller";
-    const isSeller = accountType === "seller";
-    if (storeFields) {
-      storeFields.style.display = isSeller ? "block" : "none";
-    }
-    if (storeNameInput) {
-      storeNameInput.required = isSeller;
-    }
-  };
-
-  accountTypeInputs.forEach((input) => {
-    input.addEventListener("change", updateStoreFields);
-  });
-
-  updateStoreFields();
 
   // Auto-fill WhatsApp with phone number
   phoneInput?.addEventListener("input", (e) => {
@@ -284,7 +261,6 @@ function renderRegister() {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const name = form.querySelector("#register-name").value.trim();
-    const accountType = form.querySelector('input[name="account-type"]:checked')?.value || "seller";
     const phone = phoneInput.value.trim();
     const storeName = storeNameInput.value.trim();
     const storeLogoUrl = storeLogoUrlInput.value.trim();
@@ -295,7 +271,7 @@ function renderRegister() {
     const snapchat = snapchatInput.value.trim();
     const instagram = instagramInput.value.trim();
     const tiktok = tiktokInput.value.trim();
-    if (!name || !phone || !email || !password || (accountType === "seller" && !storeName)) {
+    if (!name || !phone || !email || !password || !storeName) {
       showToast("Tous les champs sont requis", "error");
       return;
     }
@@ -333,10 +309,10 @@ function renderRegister() {
           phone,
           email,
           password,
-          accountType,
+          accountType: "seller",
           socialLinks: normalized,
-          storeName: accountType === "seller" ? storeName : undefined,
-          storeLogo: accountType === "seller" ? storeLogo : undefined,
+          storeName,
+          storeLogo,
           subscriptionPaid: false,
           subscriptionMethod: null,
           subscriptionTransactionId: null,
@@ -407,15 +383,11 @@ function updateHeader() {
     setRoute("#login");
   };
 
-  dom.navStore.style.display = isConnected && state.user?.accountType === "seller" ? "block" : "none";
+  dom.navStore.style.display = isConnected ? "block" : "none";
 
   dom.navPricing.style.display = "block";
 
-  if (isConnected && state.user?.accountType === "customer") {
-    dom.navDashboard.textContent = "Boutiques";
-  } else {
-    dom.navDashboard.textContent = "Mon espace";
-  }
+  dom.navDashboard.textContent = "Mon espace";
 
   dom.navProfile.style.display = isConnected ? "block" : "none";
   if (isConnected) {
@@ -541,8 +513,8 @@ async function loadStoreList(searchTerm = "", sortBy = "popular") {
 
 function renderStore() {
   if (!ensureAuth()) return;
-  if (state.user?.accountType !== "seller") {
-    showToast("Votre compte client n'a pas de boutique. Découvrez les boutiques disponibles.", "info");
+  if (state.user?.accountType && state.user.accountType !== "seller") {
+    showToast("Accès vendeur requis pour gérer la boutique.", "info");
     setRoute("#dashboard");
     return;
   }
@@ -828,8 +800,8 @@ function shareLink(platform) {
 
 async function renderStore() {
   if (!ensureAuth()) return;
-  if (state.user?.accountType !== "seller") {
-    showToast("Votre compte client n'a pas de boutique. Découvrez les boutiques disponibles.", "info");
+  if (state.user?.accountType && state.user.accountType !== "seller") {
+    showToast("Accès vendeur requis pour gérer la boutique.", "info");
     setRoute("#dashboard");
     return;
   }

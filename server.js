@@ -305,13 +305,14 @@ app.get("/api/health", (req, res) => {
 
 app.post("/api/auth/register", async (req, res) => {
   const { name, phone, email, password, socialLinks = {}, accountType = "seller", storeName, storeLogo, subscriptionPaid = false, subscriptionMethod, subscriptionTransactionId } = req.body;
-  if (!name || !phone || !email || !password || !["seller", "customer"].includes(accountType)) {
-    return res.status(400).json({ message: "Champs manquants ou type de compte invalide" });
+  if (!name || !phone || !email || !password) {
+    return res.status(400).json({ message: "Champs manquants" });
   }
-  if (accountType === "seller") {
-    if (!storeName) {
-      return res.status(400).json({ message: "Nom de boutique requis pour le compte vendeur" });
-    }
+  if (accountType !== "seller") {
+    return res.status(400).json({ message: "Seul le compte vendeur est disponible." });
+  }
+  if (!storeName) {
+    return res.status(400).json({ message: "Nom de boutique requis pour le compte vendeur" });
   }
 
   const data = loadData();
@@ -374,6 +375,10 @@ app.post("/api/auth/login", async (req, res) => {
   const user = data.users.find((u) => u.email === email.toLowerCase());
   if (!user) {
     return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+  }
+
+  if (user.accountType && user.accountType !== "seller") {
+    return res.status(403).json({ message: "Seul le compte vendeur est autorisé." });
   }
 
   let passwordMatches = false;
