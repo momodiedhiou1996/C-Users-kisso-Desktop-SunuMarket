@@ -20,7 +20,7 @@ const API_BASE = (() => {
   }
 
   // Default Render backend URL if no explicit frontend config is provided.
-  return "https://sunumarket-api.onrender.com/api";
+  return "https://sunumarket-api-u1ei.onrender.com/api";
 })();
 const TOKEN_KEY = "sunumarket_token";
 
