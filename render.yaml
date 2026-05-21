@@ -35,5 +35,11 @@ services:
   - type: web
     name: sunumarket-web
     runtime: static
-    buildCommand: mkdir -p dist && cp index.html app.js style.css brochure-sunumarket.html sunumarket-logo.svg sunumarket-logo.png sunumarket-logo.svgz robots.txt sitemap.xml dist/
+    buildCommand: |
+      mkdir -p dist
+      cp index.html app.js style.css brochure-sunumarket.html sunumarket-logo.svg sunumarket-logo.png sunumarket-logo.svgz robots.txt sitemap.xml dist/
+      for f in google*.html; do
+        [ -e "$f" ] || continue
+        cp "$f" dist/
+      done
     staticPublishPath: dist
