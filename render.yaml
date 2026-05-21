@@ -3,8 +3,18 @@ services:
     name: sunumarket-api
     runtime: node
     plan: starter
-    buildCommand: npm install --prefix server
-    startCommand: node server/server.js
+    buildCommand: |
+      if [ -f server/package.json ]; then
+        npm install --prefix server
+      else
+        npm install
+      fi
+    startCommand: |
+      if [ -f server/server.js ]; then
+        node server/server.js
+      else
+        node server.js
+      fi
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
